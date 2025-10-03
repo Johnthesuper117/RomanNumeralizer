@@ -8,3 +8,7 @@ def Roman(num):
 
 userInput = int(input('Enter you alphanumeric number here: '))
 print(f'Alphanumeric: {userInput} Roman Numeral: {Roman(userInput)}')
+
+if __name__ == "__main__":
+    import sys
+    print(Roman(int(sys.argv[1])))
