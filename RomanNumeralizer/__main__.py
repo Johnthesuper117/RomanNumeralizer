@@ -1,38 +1,37 @@
 import itertools as it
 
-def Romanizer(num:int):
-    if num >= 4000:
+def Romanizer(num: int) -> str:
+    if int(num) >= 4000:
         return "The number you entered is too large. Roman Numerals can only range from 1 to 3999, and have to be a whole number. "
     
-    if num <= 0:
+    if int(num) <= 0:
         return "The number you entered is too small. Roman Numerals can only range from 1 to 3999, and have to be a whole number. "
-
-    romanChar = {1: 'I', 5: 'V', 10: 'X', 50: 'L', 100: 'C', 500: 'D', 1000: 'M'}
-    numSplit = []
-    order = list(romanChar.keys())[-1]
-    print(f'Order = {order}')
+   
+    val = [
+        1000, 900, 500, 400,
+        100, 90, 50, 40,
+        10, 9, 5, 4,
+        1
+    ]
+    syms = [
+        "M", "CM", "D", "CD",
+        "C", "XC", "L", "XL",
+        "X", "IX", "V", "IV",
+        "I"
+    ]
+    roman_num = ""
     i = 0
-    for key in romanChar:
-        print(f'i = {i}')
-        print(f'Key = {key}')
-        if num >= order:
-            denom = (order for _ in range(int(num//order)))
-            print(f'Denom = {denom}')
-            for val in it.islice(denom, int(num//order)):
-                numSplit.append(val)
-            print(f'numSplit = {numSplit}')
-            num = num % order
-            print(f'num = {num}')
+    while num > 0:
+        count = num // val[i]
+        roman_num += syms[i] * count
+        num -= val[i] * count
         i += 1
-        if i == 7:
-            break
-        order = list(romanChar.keys())[-1 * (i + 1)]
-        print(f'Order = {order}')
-    numSplit = [romanChar.get(item, item) for item in numSplit]
-    numeral = ''.join(str(item) for item in numSplit)
-    print(f'Numeral = {numeral}')
-    return numeral
+    return roman_num
+
 
 if __name__ == '__main__':
     import sys
-    print(Romanizer(int(sys.argv[1])))
+    try:
+        print(Romanizer(int(sys.argv[1])))
+    except ValueError:
+        print("Invalid input. Please enter a valid integer. Roman Numerals can only range from 1 to 3999 as an integer/whole number.")
