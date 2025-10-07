@@ -1,10 +1,13 @@
 import itertools as it
 
+desc = "Converts an integer to a Roman numeral. Usage: Romanizer(<integer>)"
+
 def Romanizer(num: int) -> str:
-    if int(num) >= 4000:
+    num = int(num)
+    if num >= 4000:
         return "The number you entered is too large. Roman Numerals can only range from 1 to 3999, and have to be a whole number. "
     
-    if int(num) <= 0:
+    if num <= 0:
         return "The number you entered is too small. Roman Numerals can only range from 1 to 3999, and have to be a whole number. "
    
     val = [
